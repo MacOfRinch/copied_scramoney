@@ -1,0 +1,4 @@
+default_url_options:
+  host: 'a0b5-115-37-180-231.ngrok-free.app'
+sorcery:
+  line_callback_url: 'https://a0b5-115-37-180-231.ngrok-free.app/oauth/callback?provider=line'
