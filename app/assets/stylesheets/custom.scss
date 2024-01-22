@@ -1,0 +1,104 @@
+a.wide-link {
+  display: block;
+}
+.money-container {
+  width: 100%;
+  height: 100vh;
+  background-image: image-url('A03D8548-B1BA-4E6A-91BC-ACC15DDBC015.jpeg'); /* 画像ファイルのパスを指定 */
+  background-color: #fff; /* フォールバックの背景色 */
+  background-size: cover; /* 画像をカバーするように表示 */
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+  background-position: center center;
+  margin-bottom: 30px;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+$line-btn-height: 40px;
+$line-radius: 8px;
+$line-icon-ratio: 0.6;
+
+.btn-line-wrapper {
+  position: relative;
+  height: $line-btn-height;
+  width: var(--line-width);
+  border-radius: $line-radius;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.btn-line {
+  position: absolute;
+  height: $line-btn-height;
+  border-radius: $line-radius;
+  width: 100%;
+}
+
+.btn-line-base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #06c755;
+}
+
+.btn-line-hover-press {
+  position: absolute;
+  background-color: #000000;
+  top: 0; /* 上端に寄せる */
+  left: 0; /* 左端に寄せる */
+  opacity: 0;
+  z-index: 1;
+}
+
+.btn-line-hover-press:hover {
+  opacity: 10%;
+}
+
+.btn-line-hover-press:active {
+  opacity: 30%;
+}
+
+.line-icon {
+  display: inline-block;
+  position: absolute;
+  top: 0; /* 上端に寄せる */
+  left: 0; /* 左端に寄せる */
+  z-index: 2;
+}
+
+.line-border {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  height: $line-btn-height;
+  width: $line-btn-height;
+  border-right: 1px solid #000000;
+  opacity: 8%;
+  z-index: 2;
+}
+
+.line-text {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1;
+  vertical-align: top;
+  height: ($line-btn-height * (1 - $line-icon-ratio));
+  position: absolute;
+  top: ($line-btn-height * $line-icon-ratio / 2);
+  left: ($line-btn-height * (1 + $line-icon-ratio) + 1px);
+  color: #FFFFFF;
+  z-index: 2;
+  font-size: ($line-btn-height * (1 - $line-icon-ratio));
+  text-decoration: none;
+}
+
+.pagination {
+  justify-content: center;
+}
