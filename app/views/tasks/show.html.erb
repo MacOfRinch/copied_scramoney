@@ -1,0 +1,48 @@
+<% content_for(:title, 'タスク管理') %>
+<div class="container-fluid">
+  <div class="center-block bg-light py-2">
+    <div class="text-center border-bottom">
+      <h1>タスク管理</h1>
+    </div>
+    <%= turbo_frame_tag @task do %>
+      <div class="bg-light py-2 mb-2 mx-auto border-top">
+        <%= link_to family_category_tasks_path(@family, @category), class: "text-decoration-none text-body" do %>
+          <div class="row pb-2 border-bottom border-secondary">
+            <div class="col-1">▼</div>
+            <div class="col-8 d-flex align-items-center">
+              <%= @task.title %>
+            </div>
+            <div class="col-3 d-flex align-items-center">
+              <%= @task.points %>
+            </div>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-8">
+        <ul class="pt-2 list-unstyled">
+          <li>
+            <p><%= "カテゴリ：#{@task.category.name}" %></p>
+          </li>
+          <li>
+            <p><%= "タスク：#{@task.title}" %></p>
+          </li>
+          <% if @task.description.present? %>
+            <li>
+              <p><%= "タスク詳細：#{@task.description}" %></p>
+            </li>
+          <% end %>
+          <li>
+            <p><%= "基礎ポイント：#{@task.points} pt" %></p>
+          </li>
+        </ul>
+        </div>
+        <div class="col-3">
+          <%= link_to '編集', edit_family_category_task_path(@family, @category, @task), class: 'btn btn-primary my-2', data: { turbo_frame: 'modal' } %>
+          <%= button_to '削除', family_category_task_path(@family, @category, @task), class: 'btn btn-danger my-2', method: :delete, data: { turbo_confirm: 'ポイント取得履歴からも削除されます。よろしいですか？', turbo_frame: '_top' } %>
+        </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

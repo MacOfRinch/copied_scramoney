@@ -1,0 +1,24 @@
+<!--<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center bg-light py-2 rounded mb-2">
+      <h1>新しいタスクの登録</h1>
+    </div>
+  </div>
+  <div class="center-block">
+    <div id="error-explanation">
+      <% if @task.errors.any? %>
+        <ul>
+          <% @task.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= render partial: 'shared/task_form', locals: { family: @family, category: @category, task: @task } %>
+    </div>
+  </div>
+</div>-->
+<%= turbo_frame_tag 'modal' do %>
+  <%= render 'modal', title: '新しいタスクの登録' do %>
+    <%= render partial: 'shared/task_form', locals: { family: @family, category: @category, task: @task } %>
+  <% end %>
+<% end %>

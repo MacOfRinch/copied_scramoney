@@ -1,0 +1,20 @@
+<footer class="footer bg-light">
+<% if @family.family_name %>
+  <div class="container-fluid fixed-bottom gx-0">
+    <div style="height: 30px" class="bg-light row px-0 pb-4">
+      <%= link_to family_path(@family), class: 'text-decoration-none link-dark col px-0' do %>
+        <div style="height: 30px" class="border text-center">ホーム</div>
+      <% end %>
+      <%= link_to family_records_path(@family), class: 'text-decoration-none link-dark col px-0' do %>
+        <div style="height: 30px" class="border text-center">履歴</div>
+      <% end %>
+      <%= link_to new_family_record_path(@family), class: 'text-decoration-none link-dark col px-0' do %>
+        <div style="height: 30px" class="border text-center">記録</div>
+      <% end %>
+      <%= link_to family_configuration_path(@family), class: 'text-decoration-none link-dark col px-0' do %>
+        <div style="height: 30px" class="border text-center">設定</div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</footer>

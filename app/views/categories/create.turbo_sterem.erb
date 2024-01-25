@@ -1,0 +1,5 @@
+<%= turbo_stream.prepend 'categories', @category %>
+
+<%= turbo_stream.update Category.new, '' %>
+
+<%= turbo_stream_flash %>

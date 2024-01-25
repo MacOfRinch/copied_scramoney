@@ -1,0 +1,6 @@
+<%= turbo_frame_tag task do %>
+  <!--<%= form_with model: @task_user, url: family_records_path(@family) do |f| %>-->
+  <%= f.number_field "tasks[#{task.id}][count]", class: 'form-control', value: record.count, data: { task_id: task.id, record_target: "value" } %>
+  <%= hidden_field_tag "task_id", task.id %>
+  <!--<% end %>-->
+<% end %>

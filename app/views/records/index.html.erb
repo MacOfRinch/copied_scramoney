@@ -1,0 +1,21 @@
+<!--履歴だよ。月を入れる予定-->
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center bg-light py-2 rounded"><h1>履歴</h1></div>
+  </div>
+  <% if @records.size == 0 %>
+    <p>今月の記録がありません</p>
+  <% end %>
+  <% if @records.size > 0 %>
+    <div class="row bg-light py-2 mx-auto mt-2 sticky-top">
+      <div class="col-1"></div>
+      <div class="col-3"><strong>やった人</strong></div>
+      <div class="col-4"><strong>タスク</strong></div>
+      <div class="col-1"><strong>pt</strong></div>
+      <div class="col-3"><strong>日時</strong></div>
+    </div>
+    <%= render partial: "task_records", collection: @records, as: :record, locals: { user: @user } %>
+    <div class="center-block text-align-center mt-2"><%= paginate @records, theme: 'bootstrap-5', class: "center-block text-align-center" %></div>
+  <% end %>
+  <div>　</div>
+</div>

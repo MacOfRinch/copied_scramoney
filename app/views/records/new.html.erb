@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center bg-light py-1 rounded"><h1>記録</h1></div>
+      <div class="row mx-auto border-top">
+      <div class="col-1 bg-light py-2 mx-auto"></div>
+      <div class="col-6 bg-light py-2 mx-auto"><strong>タスク名</strong></div>
+      <div class="col-2 bg-light py-2 mx-auto"><strong>pt</strong></div>
+      <div class="col-3 bg-light py-2 mx-auto"><strong>カウント</strong></div>
+    </div>
+    <%= form_with model: @task_user, url: family_records_path(@family) do |f| %>
+      <% @categories.each do |category| %>
+        <%= render partial: 'category_for_record', locals: { category: category } %>
+      <% end %>
+      <%= f.submit '記録', class: 'text-center btn btn-success' %>
+    <% end %>
+  </div>
+  <div>　</div>
+</div>

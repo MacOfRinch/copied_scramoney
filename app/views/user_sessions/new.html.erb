@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="text-center">
+      <h1>ログイン</h1>
+      <%= form_with url: login_path, local: true do |f| %>
+        <div class="form-group col-md-6 offset-md-3">
+          <%= f.label :email, 'メールアドレス' %> <br>
+          <%= f.text_field :email, {class: 'form-control'} %>
+          <!-- <label for="email">Email</label>
+          <input type="text" name="email" id="email" value="" class="form-control" /> -->
+        </div>
+        <div class="form-group col-md-6 offset-md-3">
+          <%= f.label :password, 'パスワード' %> <br>
+          <%= f.password_field :password, {class: 'form-control'} %>
+          <!--<label for="password">Password</label>
+          <input type="password" name="password" id="password" value="" class="form-control" />--> 
+        </div>
+        <% if @link_token %>
+          <%= f.hidden_field :linkToken, value: @link_token %>
+        <% end %>
+        <div class="actions my-2" data-controller="hello">
+          <%= f.submit 'ログイン', { class: 'btn btn-primary' } %>
+        </div>
+        <% unless @link_token %>
+          <%= link_to auth_at_provider_path(provider: :line), class: "btn btn-line-wrapper center-block text-center my-2 d-flex" do %>
+            <%= render partial: 'shared/line_button', locals: { content: 'LINEでログイン または 新規登録' } %>
+          <% end %>
+          <div class="text-center">
+            <%= check_box_tag :remember_me, params[:remember_me], true %>
+            <%= label_tag :remember_me, 'ログイン状態を保持' %>
+          </div>
+          <div class='text-center'>
+            <%= link_to '新規登録', new_format_path %><br>
+            <%= link_to '招待された方はこちら', new_invited_path %><br>
+            <br>
+            <%= link_to 'パスワードをお忘れですか？', new_password_reset_path %>
+          </div>
+        <% end %>
+      <% end %>
+      <br>
+      <div class="text-center">
+        <%= button_to 'ゲストとしてログイン', login_as_guest_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

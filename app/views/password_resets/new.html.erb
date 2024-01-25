@@ -1,0 +1,15 @@
+<% content_for(:title, 'パスワードリセット') %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="text-center">
+      <h1>パスワードリセット</h1>
+      <%= form_with url: password_resets_path, local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :email, 'メールアドレス' %><br />
+          <%= f.email_field :email, class: 'form-control' %>
+        </div>
+        <%= f.submit '送信', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

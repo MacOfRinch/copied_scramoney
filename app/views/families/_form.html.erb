@@ -1,0 +1,15 @@
+<div class="form-group">
+  <%= f.label :family_name, '名字' %>
+  <%= f.text_field :family_name, value: nil, class: "form-control", placeholder: '例：山田' %>
+</div>
+<div class="form-group">
+  <%= f.label :family_nickname, 'ニックネーム' %>
+  <%= f.text_field :family_nickname, value: family.family_nickname, class: "form-control", placeholder: '例：きのこ' %>
+</div>
+<div class="form-group">
+  <%= f.label :budget, 'お小遣い予算' %>
+  <%= f.number_field :budget, value: family.budget, step: 1000, value: 50_000, class: "form-control" %>
+</div>
+<div class="text-center mt-2">
+  <%= f.submit '登録する', class: "btn btn-primary" %>
+</div>

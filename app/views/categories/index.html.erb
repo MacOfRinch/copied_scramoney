@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="center-block bg-light py-2">
+    <div class="text-center">
+      <h1>カテゴリ一覧</h1>
+    </div>
+  </div>
+  <div class="center-block">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>カテゴリ名</th>
+        <th></th>
+        <th><%= link_to '新規', new_family_category_path, class: 'btn btn-outline-primary' %></th>
+      </tr>
+      </thead>
+      <tbody>
+        <%= render @categories %>
+      </tbody>
+    </table>
+  </div>
+  <div>　</div>
+</div>

@@ -1,0 +1,41 @@
+<% content_for(:title, '家族の招待') %>
+<div class="container-fluid">
+  <div class="center-block bg-light">
+    <div class="text-center">
+    <h1 class="border-bottom py-2">家族の招待</h1>
+    </div>
+    <div class="text-center">
+    <% if logged_in? && @family == current_user.family %>
+      <% if @family.users.size == 1 %>
+        <h2>ステップ2:家族の招待</h2>
+        <p>このページは、設定→家族の招待でいつでも表示できます。</p>
+      <% end %>
+      <p>このページを招待したい家族に共有してください。</p>
+    <% else %>
+      <p>Scramoneyへようこそ！</p>
+    <% end %>
+    </div>
+      <div class="text-center py-1">
+      <% if logged_in? %>
+        <% if @family == current_user.family %>
+          <p><%= "(招待コード: #{@invitation_code})" %></p>
+          <%= image_tag show_qrcode(family_invitation_path, 200) %>
+          <p>上記のQRコードでも招待可能です。</p>
+        <% else %>
+          <p><%= button_to 'こちらのボタン', invited_path(invitation_code: @invitation_code), data: { turbo_method: :post }, class: 'btn btn-primary' %></p>
+          <p>をタップまたはクリックしてください。</p>
+        <% end %>
+      <% else %>
+      <!--URLヘルパーに招待コードの情報を持たせてページ遷移することで、招待コードを書くことなくサインアップできるようにしてるよ。-->
+        <p><%= link_to 'こちらのページから情報を入力してください', new_invited_path(invitation_code: @invitation_code) %></p>
+        <div class="text-center my-2">
+          <p>または：</p>
+          <%= link_to auth_at_provider_path(provider: :line, invitation_code: params[:family_id]), class: "btn btn-line-wrapper center-block text-center my-2 d-flex" do %>
+            <%= render partial: 'shared/line_button', locals: { content: 'LINEで新規登録' } %>
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

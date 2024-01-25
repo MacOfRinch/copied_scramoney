@@ -1,0 +1,14 @@
+<div class="text-center">
+  <!--
+  <% if user.avatar.present? %>
+    <%= image_tag user.avatar.url, class: 'rounded-circle', size: '30x30' %><br>
+  <% end %>
+  -->
+  <% if user == current_user %>
+    <div class="text-danger"><%= display_name(user) %><br>
+    <%= "#{user.calculate_pocket_money_of_last_month.to_s(:delimited)}円" %></div>
+  <% else %>
+    <%= display_name(user) %><br>
+    <%= "#{user.calculate_pocket_money_of_last_month.to_s(:delimited)}円" %>
+  <% end %>
+</div>

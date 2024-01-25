@@ -1,0 +1,20 @@
+<!--そのカテゴリに属するタスク一覧のページだよ。タスク管理画面へ飛ぶよ-->
+<div class="container-fluid">
+  <div class="center-block bg-light py-2">
+    <div class="text-center">
+      <h1><%= "【#{@category.name}】のタスク一覧" %></h1>
+    </div>
+  </div>
+  <div class="bg-light py-2 border-top mx-auto center-block row sticky-top">
+    <div class="col-6">
+      <strong>タスク名</strong>
+    </div>
+    <div class="col-3"><strong>pt</strong></div>
+    <div class="col-3"></div>
+  </div>
+  <div id="tasks">
+    <%= render partial: 'task', collection: @tasks, locals: { family: @family, category: @category } %>
+  </div>
+  <%= link_to 'タスク追加', new_family_category_task_path(@family, @category), class: 'btn btn-primary mt-2', data: { turbo_frame: 'modal' } %>
+</div>
+<div>　</div>

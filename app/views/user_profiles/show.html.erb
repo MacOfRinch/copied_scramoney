@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-10 offset-1 bg-light">
+      <h1 class="float-left mb-5">プロフィール</h1>
+      <%= link_to '編集', edit_family_user_profile_path, class: 'btn btn-success float-right' %>
+      <table class="table">
+        <tr>
+          <th scope="row">名前</th>
+          <td>
+            <%= @user.name %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">ニックネーム</th>
+          <td><%= @user.nickname %></td>
+        </tr>
+        <!--<tr>
+        <% if @user.avatar.present? %>
+          <th scope="row">イメージ</th>
+          <td>
+            <%= image_tag @user.avatar.url, class: 'rounded-circle mr-15', size: '100x100' %>
+          </td>
+        <% end %>
+        </tr>-->
+      </table>
+    </div>
+  </div>
+</div>

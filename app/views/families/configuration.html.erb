@@ -1,0 +1,15 @@
+<% content_for(:title, '設定') %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center bg-light py-2 rounded"><h1>設定</h1></div>
+      <div class="center-block">
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　タスク管理', family_categories_path, class:"text-decoration-none link-dark wide-link" %></div>
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　自分のプロフィール', family_user_profile_path, class:"text-decoration-none link-dark wide-link" %></div>
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　家族のプロフィール・お小遣い', family_profile_path, class:"text-decoration-none link-dark wide-link" %></div>
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　家族の招待', family_invitation_path, class:"text-decoration-none link-dark wide-link" %></div>
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　LINE連携', new_family_user_line_associates_path(@family, @user), class:"text-decoration-none link-dark wide-link" %></div>
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　高度な設定・退会(未実装)', family_advanced_configuration_path(@family), class:"text-decoration-none link-dark wide-link" %></div>
+      <div class="text-center"><%= button_to 'ログアウト', logout_path, class: 'btn btn-danger my-2', method: :delete, data: { turbo_confirm: 'ログアウトしますか？' } %></div>
+    </div>
+  </div>
+</div>

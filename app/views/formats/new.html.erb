@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>2つのステップを終えて始めましょう！</h1>
+      <% if @format.errors.any? %>
+        <div class="alert alert-danger">
+          <% @format.errors.full_messages.each do |message| %>
+            <%= message %><br>
+          <% end %>
+        </div>
+      <% end %>
+      <%= form_with model: @format, url: formats_path, local: true do |f| %>
+        <h2>ステップ1-1:あなたの家族について教えてください</h2>
+        <div class="form-group">
+          <%= f.label :family_name, '名字(必須)' %>
+          <%= f.text_field :family_name, value: @format.family_name, class: "form-control", placeholder: '例：山田' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :family_nickname, 'ニックネーム' %>
+          <%= f.text_field :family_nickname, value: @format.family_nickname, class: "form-control", placeholder: '例：きのこ' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :budget, 'お小遣い予算(必須)' %>
+          <%= f.number_field :budget, value: @format.budget, step: 1000, class: "form-control" %>
+        </div><br>
+        <h2>ステップ1-2:あなたについて教えてください</h2>
+        <div class="form-group">
+          <%= f.label :name, '名前(必須)' %>
+          <%= f.text_field :name, value: @format.name, class: "form-control", placeholder: '例：太郎' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :nickname, 'ニックネーム' %>
+          <%= f.text_field :nickname, value: @format.nickname, class: "form-control", placeholder: '例：たけのこ' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email, 'メールアドレス(次回ログイン時に必要です)' %>
+          <%= f.email_field :email, value: @format.email, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password, 'パスワード(次回ログイン時に必要です)' %>
+          <%= f.password_field :password, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation, 'パスワードの確認' %>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+        <!--<div class="form-group">
+          <%= f.label :avatar, 'イメージ' %>
+          <%= f.text_field :avatar, value: @format.avatar, class: "form-control", placeholder: '例：山田' %>
+        </div>-->
+        <div class="center-block my-2">
+          <div class="text-center">
+            <%= f.submit 'ステップ1を完了する', class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

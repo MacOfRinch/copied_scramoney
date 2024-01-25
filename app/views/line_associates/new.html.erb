@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center bg-light py-2 rounded"><h1>LINEとの連携</h1></div>
+    <div class="row mx-auto">
+      <div class="col-12 bg-light py-2 mt-2 mx-auto text-center">
+        <% if @user.line_user_id.nil? %>
+          <p>こちらのボタンから公式アカウントを友だち登録しましょう！</p>
+          <a href="https://lin.ee/OV7o0B7"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+        <% else %>
+          <% if @user.line_flag == true %>
+            <p>既に登録済みです。いつでも通知をLINEから受け取れます。</p>
+            <%= button_to 'LINE通知をオフにする', family_user_line_associates_path(@family, @user), method: :delete, class: "btn btn-danger" %>
+          <% else %>
+            <p>こちらのボタンからLINE通知を受け取れるようになります！</p>
+            <%= button_to 'LINE通知を受け取る', family_user_line_associates_path(@family, @user), method: :post, class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-12 bg-light py-2 mt-2 mx-auto">
+        本アプリがプッシュ通知以外の目的で個人情報を使用することはありません。
+      </div>
+    </div>
+  <div>　</div>
+</div>

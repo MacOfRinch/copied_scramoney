@@ -1,0 +1,39 @@
+<% content_for(:title, '家族プロフィール') %>
+<div class="container-fluid">
+  <div class="">
+    <div class="center-block bg-light">
+      <h1 class="text-center py-2">家族プロフィール</h1>
+      <%= link_to '編集', edit_family_profile_path, class: 'btn btn-success float-right ms-2 mb-2' %>
+      <table class="table">
+        <tr>
+          <th scope="row">名字</th>
+          <td>
+            <%= @family.family_name %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">ニックネーム</th>
+          <td><%= @family.family_nickname %></td>
+        </tr>
+        <!--<tr>
+        <% if @family.family_avatar.present? %>
+          <th scope="row">アバター</th>
+          <td>
+            <%= image_tag '/assets/image/default.jpeg', class: 'rounded-circle mr-15', size: '100x100' %>
+          </td>
+        <% end %>
+        </tr>-->
+        <tr>
+          <th scope="row">お小遣い予算</th>
+          <td>
+            <%= @family.budget.to_s(:delimited) %>円
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">メンバー</th>
+          <%= render partial: "family_profiles/user", collection: @users %>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

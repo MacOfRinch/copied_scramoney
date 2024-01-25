@@ -1,0 +1,24 @@
+<%= turbo_frame_tag Task.new do %>
+  <div class="center-block mx-auto bg-light py-2 my-2 rounded">
+    <%= bootstrap_form_with model: task, url: family_category_tasks_path(family, category), data: { action: "turbo:submit-end->modal#close" } do |f| %>
+      <ul class="list-unstyled">
+        <li>
+          <%= f.label :title, 'タスク名(必須)：' %>
+          <%= f.text_field :title %><br>
+        </li>
+        <li>
+          <%= f.label :description, 'タスク詳細：' %>
+          <%= f.text_field :description %><br>
+        </li>
+        <li>
+          <%= f.label :points, '基礎ポイント(必須)：' %>
+          <%= f.number_field :points %>pt<br>
+        </li>
+      </ul>
+      <div class="text-center">
+        <%= f.submit '登録', class: "btn btn-primary my-2", data: { turbo_frame: '_top' } %>
+        <!--<%= link_to 'キャンセル', family_category_tasks_path(family, category), class: 'btn btn-outline-secondary my-2' %>-->
+      </div>
+    <% end %>
+  </div>
+<% end %>

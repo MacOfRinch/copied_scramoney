@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   default_scope -> { order(created_at: :asc) }
 
-  mount_uploader :avatar, ImageUploader
+  # mount_uploader :avatar, ImageUploader
 
   has_many :task_users, dependent: :destroy
   has_many :tasks, through: :task_users

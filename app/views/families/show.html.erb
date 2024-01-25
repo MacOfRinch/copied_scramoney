@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center bg-light">
+      <%= "#{display_family_name(@family)}のデータ(#{Date.today.month}月分)" %><br>
+      <%= "総取得ポイント: #{@family.sum_points}pt" %>
+    </div>
+  </div>
+  <% if @family.users.size < 2 %>
+    <div class="text-center bg-light mt-5"><p>ステップ2を終えていません：<br><%= link_to 'まずはこちらから家族を招待しましょう！', family_invitation_path(@family) %></p></div>
+  <% elsif @family.sum_points <= 0 %>
+    <div class="text-center bg-light mt-5"><p>今月のデータがありません</p></div>
+  <% elsif @family.monopolized_by_one? %>
+    <div class="text-center bg-light mt-5"><p>2人以上の記録がありません：<br>
+    みんなで記録して始めましょう！</p></div>
+  <% else %>
+    <%= pie_chart @each_name_points, id: 'pie-chart' %>
+    <div class="center-block bg-light">
+      <div class="text-center" data-controller="hello">
+        <%= "お小遣い予算: #{@family.budget.to_s(:delimited)}円" %>
+        <%= column_chart @each_pocket_money, id: 'column-chart' %>
+      </div>
+    </div>
+    <div class="center-block bg-light">
+      <div class="text-center">
+        <p>獲得ポイント推移</p>
+        <%= line_chart @day_points, id: 'line-chart' %>
+      </div>
+    </div>
+  <% end %>
+  <div>　</div>
+</div>

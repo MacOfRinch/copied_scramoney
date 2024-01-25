@@ -1,0 +1,21 @@
+
+  <div class="center-block">
+    <div class="">
+      <ul class="list-unstyled">
+        <li>
+          <p><%= "カテゴリ：#{task.category.name}" %></p>
+        </li>
+        <li>
+          <p><%= "タスク：#{task.title}" %></p>
+        </li>
+        <% if task.description.present? %>
+        <li>
+          <p><%= "タスク詳細：#{task.description}" %></p>
+        </li>
+        <% end %>
+        <li>
+          <p><%= "基礎ポイント：#{task.points} pt" %></p>
+        </li>
+      </ul>
+    </div>
+  </div>

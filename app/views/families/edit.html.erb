@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <% if @family.errors.any? %>
+        <div class="alert alert-danger">
+          <% @family.errors.full_messages.each do |message| %>
+            <%= message %><br>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="col-12 text-center bg-light">
+        <h1>2つのステップを終えて始めましょう！</h1>
+        <h2>ステップ1:あなたの家族について教えてください</h2>
+      </div>
+      <%= form_with model: @family, url: family_path, local: true do |f| %>
+        <%= render "form", { family: @family, f: f } %>
+      <% end %>
+    </div>
+  </div>
+</div>

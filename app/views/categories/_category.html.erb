@@ -1,0 +1,6 @@
+
+    <tr>
+      <td class="col-6 my-auto"><%= category.name %></td>
+      <td class="col-3"><%= link_to '編集', family_category_tasks_path(@family, category), class: 'btn btn-outline-success' %></td>
+      <td class="col-3"><%= button_to '削除', family_category_path(@family, category), method: :delete, class: 'btn btn-outline-danger', data: { turbo_confirm: 'このカテゴリに属するタスクも削除されます。よろしいですか？' } %></td>
+    </tr>

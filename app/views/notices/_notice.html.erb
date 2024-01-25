@@ -1,0 +1,17 @@
+<%= turbo_frame_tag notice do %>
+  <tr>
+    <td>
+      <div class="float-left flex-fill">
+        <% case notice.notice_type %>
+        <% when "pocket_money" %>
+          <%= link_to notice.title, family_notice_path(@family, notice), class: 'flex-fill text-decoration-none link-dark side-link' %>
+        <% when "approval_request" %>
+          <%= link_to notice.title, family_notice_path(@family, notice), class: 'flex-fill text-decoration-none link-dark side-link', data: { turbo_frame: 'modal' } %>
+        <% end %>
+      </div>
+      <div class="float-end">
+        <%= l notice.created_at, format: :short %>
+      </div>
+    </td>
+  </tr>
+<% end %>

@@ -1,0 +1,15 @@
+<%= turbo_frame_tag record do %>
+  <div class="row bg-light py-2 mx-auto border">
+    <div class="col-1 d-flex align-items-center">
+      <% if record.user == current_user %>
+        <%= link_to family_task_user_path(@family, record), class: "text-danger", data: { turbo_method: :delete, turbo_confirm: 'ポイントが減ります。本当に削除しますか？', turbo_frame: '_top' } do %>
+          <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-3 d-flex align-items-center"><%= record.user.nickname.present? ? record.user.nickname : record.user.name %></div>
+    <div class="col-4 d-flex align-items-center"><%= record.count >= 2 ? "#{record.task.title} x #{record.count}" : record.task.title %></div>
+    <div class="col-1 d-flex align-items-center"><%= record.task.points * record.count.to_i %></div>
+    <div class="col-3 d-flex align-items-center"><%= l(record.created_at, format: :short) %></div>
+  </div>
+<% end %>

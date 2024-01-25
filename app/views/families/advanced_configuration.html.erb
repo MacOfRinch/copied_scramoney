@@ -1,0 +1,14 @@
+<% content_for(:title, '高度な設定') %>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center bg-light py-2 rounded"><h1>高度な設定</h1></div>
+      <div class="center-block">
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　ユーザー削除', family_user_path(@family, current_user), class:"text-decoration-none text-danger", data: { turbo_method: :delete, turbo_confirm: "この操作は取り消せません。本当にあなたの情報を削除してよろしいですか？" } %></div>
+        <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　家族の削除', family_path(@family), class:"text-decoration-none text-danger", data: { turbo_method: :delete, turbo_confirm: "この操作は取り消せません。本当にあなたの所属する家族情報を削除しますか？\nまた、家族全員の情報がアプリから消去されます。" } %></div>
+        <% if current_user.line_user_id.present? %>
+          <div class="bg-secondary-subtle py-2 ps-2 my-2 rounded"><%= link_to '▶︎　LINEアカウントとの連携解除', line_events_path, class:"text-decoration-none link-dark wide-link", data: { turbo_method: :delete, turbo_confirm: "連携を解除すると、LINEでのログイン機能や通知を利用できなくなります。よろしいですか？" } %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="container-fluid pocket_money-container">
+  <% case @notice.notice_type %>
+  <% when "pocket_money" %>
+    <div class="center-block bg-light">
+      <div class="text-center">
+        <p>お疲れ様でした！</p>
+        <h1><%= "あなたの今月のお小遣いは・・・#{current_user.calculate_pocket_money_of_last_month.to_s(:delimited)}円です！" %></h1>
+      </div>
+    </div>
+    <div class="center-block bg-light">
+      <div class="text-center"><p>先月の結果</p></div>
+      <% if @family.sum_points_of_last_month != 0 %>
+        <%= pie_chart @each_name_points %><br>
+      <% else %>
+        <p class="text-center">先月のデータがありません</p>
+      <% end %>
+      <div class="text-center"><p><%= "お小遣い予算：#{@family.budget_of_last_month.to_s(:delimited)}円" %></p></div>
+      <div class="d-flex justify-content-around">
+        <%= render partial: 'user', collection: @users %>
+      </div>
+    </div>
+  <% when "approval_request" %>
+    <%= render 'modal', title: '承認申請' do %>
+      <%= render partial: 'show_approval_request', locals: { family: @family, new_data: @new_family_data, request: @request }, data: { turbo_frame: 'modal' } %>
+    <% end %>
+    <!--<div class="center-block bg-light">
+      <div class="text-center">
+        <p>以下の変更を承認しますか？</p>
+        <p><%= "家族名：#{@family.family_name} -> #{@new_family_data.name}" %></p>
+        <p><%= "ニックネーム：#{@family.family_nickname} -> #{@new_family_data.nickname}" %></p>
+        <p><%= "お小遣い予算：#{@family.budget} -> #{@new_family_data.budget}" %></p>
+      </div>
+      <div class="row">
+        <div class="col-6 text-center">
+          <%= button_to '承認', approve_family_path(@request), class: 'btn btn-primary' %>
+        </div>
+        <div class="col-6 text-center">
+          <%= button_to '拒否', refuse_family_path(@request), class: 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>-->
+  <% end %>
+</div>

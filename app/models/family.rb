@@ -1,7 +1,7 @@
 class Family < ApplicationRecord
   after_create :copy_default_categories_and_tasks
 
-  mount_uploader :family_avatar, ImageUploader
+  # mount_uploader :family_avatar, ImageUploader
 
   before_create lambda {
                   while id.blank? || Family.find_by(id:).present?
