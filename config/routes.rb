@@ -3,7 +3,6 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   get 'invited_users/new'
   get 'invited_users/create'
-  get 'home/top'
   get 'oauths/oauth'
   get 'oauths/callback'
   get 'hello/index', to: 'hello#index'
@@ -41,11 +40,7 @@ Rails.application.routes.draw do
     get :configuration
     get :invitation
     get :advanced_configuration
-    
-    # approve, refuseからresource形式に変えたので要検証。
-    resource :approval_request, only: %i[ create destroy ]
-    # post :approve, to: 'approval_requests#approve', on: :member
-    # post :refuse, to: 'approval_requests#refuse', on: :member
+    resources :approval_requests, only: %i[ update destroy ]
   end
   resource :family_profile, only: %i[show edit update]
   resource :invited, controller: :invited_users, only: %i[new create]

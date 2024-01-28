@@ -1,0 +1,18 @@
+<%= turbo_frame_tag Category.new do %>
+  <div class="container-fluid bg-light my-2">
+    <% if category.errors.any? %>
+      <% category.errors.full_messages.each do |error| %>
+        <div class="bg-danger-subtle p-2">
+          <%= error %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= bootstrap_form_with model: category, url: family_categories_path do |f| %>
+      <%= f.text_field :name, class: 'form-control', placeholder: 'カテゴリ名を入力してください' %>
+      <div class="text-center my-2">
+        <%= f.submit '登録する', class: 'btn btn-primary my-2', data: { turbo_frame: '_top' } %>
+        <%= link_to 'キャンセル', '#', class: 'btn btn-outline-secondary my-2', data: { action: "click->modal#closeAbsolutely" } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

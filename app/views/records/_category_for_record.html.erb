@@ -1,6 +1,6 @@
 <%= turbo_frame_tag category do %>
   <%= link_to task_index_family_record_path(@family, category), class: "text-decoration-none text-body" do %>
-    <div class="row bg-secondary-subtle py-2 my-2 mx-auto rounded">
+    <div class="row bg-light py-2 mx-auto border-top">
       <div class="col-1">▶︎</div>
       <div class="col-11"><%= category.name %></div>
     </div>

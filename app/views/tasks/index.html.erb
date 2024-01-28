@@ -15,6 +15,6 @@
   <div id="tasks">
     <%= render partial: 'task', collection: @tasks, locals: { family: @family, category: @category } %>
   </div>
-  <%= link_to 'タスク追加', new_family_category_task_path(@family, @category), class: 'btn btn-primary mt-2', data: { turbo_frame: 'modal' } %>
+  <%= link_to 'タスク追加', new_family_category_task_path(@family, @category), class: 'btn btn-primary mt-2', data: { turbo_frame: 'modal', action: "click->modal#show" } %>
 </div>
 <div>　</div>

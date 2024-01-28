@@ -17,7 +17,7 @@
       </ul>
       <div class="text-center">
         <%= f.submit '登録', class: "btn btn-primary my-2", data: { turbo_frame: '_top' } %>
-        <!--<%= link_to 'キャンセル', family_category_tasks_path(family, category), class: 'btn btn-outline-secondary my-2' %>-->
+        <%= link_to 'キャンセル', "#", class: 'btn btn-outline-secondary my-2', data: { action: "click->modal#closeAbsolutely" } %>
       </div>
     <% end %>
   </div>

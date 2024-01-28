@@ -1,5 +1,8 @@
 class ApprovalRequestsController < ApplicationController
-  def create
+
+  before_action :set_request
+
+  def update
     status = ApprovalStatus.find_by(approval_request_id: @request.id, user_id: current_user.id)
     status.update!(status: :accept)
     @family.apply_changes_if_approved(@request)

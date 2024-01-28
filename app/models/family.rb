@@ -1,4 +1,6 @@
 class Family < ApplicationRecord
+  require 'line/bot'
+
   after_create :copy_default_categories_and_tasks
 
   # mount_uploader :family_avatar, ImageUploader
@@ -101,15 +103,22 @@ class Family < ApplicationRecord
     request.check_if_approved
     if request.status == 'accepted'
       merge_temporary_data(request)
-      Notice.create()
       # 承認されたことをLINEで通知するよ。
-      ApprovedEditFamilyProfileJob.perform_later(request.requester)
-    elsif request.status == 'refused'
+      requester = request.requester
+      users.each { |user| user.update_column(:pocket_money, user.calculate_pocket_money) }
+      if requester.line_flag
+        message = {
+          type: 'text',
+          text: "あなたの申請が承認され、家族プロフィールが更新されました！\n名字：#{requester.family.family_name}\nニックネーム：#{requester.family.family_nickname}\nお小遣い予算：#{requester.family.budget.to_s(:delimited)}円"
+                  }
+        line_client.push_message(request.requester.line_user_id, message)
+      end
+    end
+    unless request.status == 'waiting'
       notices = Notice.where(approval_request_id: request.id)
       notices.each do |notice|
-        notice.destroy!
+        notice.destroy
       end
-
     end
   end
 
@@ -121,5 +130,12 @@ class Family < ApplicationRecord
                    family_avatar: temporary_data.avatar,
                    budget: temporary_data.budget
                    )
+  end
+
+  def line_client
+    @line_client ||= Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    }
   end
 end

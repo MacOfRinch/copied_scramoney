@@ -15,10 +15,10 @@ class SignupForm
   validate :validate_family
 
   def save
-    family = Family.create(family_name:, family_nickname:, family_avatar:,
+    family = Family.create(family_name:, family_nickname:,
                            budget:)
     user = User.create(family_id: family.id, name:, nickname:, email:, password:,
-                       password_confirmation:, avatar:, avatar_cache:)
+                       password_confirmation:, avatar:)
     return false if family.invalid? || user.invalid?
     # バリデーション通ってたらuserでログインしたいから返り値をuserにしておくよ。
     user

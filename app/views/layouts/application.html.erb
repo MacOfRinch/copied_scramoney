@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>StimulusTest</title>
+    <title>Scramoney</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -22,7 +22,11 @@
     <%= render 'shared/flash_messages' %>
   </div>
   <div class="money-container">
-    <%= yield %>
+    <div class="col-md-8 offset-md-2">
+      <div class="row">
+        <%= yield %>
+      </div>
+    </div>
   </div>
   <div class="mb-4"></div>
   <% if logged_in? %>
