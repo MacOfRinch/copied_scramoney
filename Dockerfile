@@ -37,7 +37,7 @@ FROM base as build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev libvips node-gyp pkg-config python-is-python3
+    apt-get install --no-install-recommends -y build-essential libpq-dev libvips node-gyp pkg-config python-is-python3
 
 # Install yarn
 ARG YARN_VERSION=1.22.19
@@ -72,7 +72,7 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl default-mysql-client imagemagick libvips && \
+    apt-get install --no-install-recommends -y curl imagemagick libvips postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
@@ -89,7 +89,7 @@ USER 1000:1000
 ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_SERVE_STATIC_FILES="true"
 
-# Entrypoint prepares the database.
+# Entrypoint sets up the container.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime

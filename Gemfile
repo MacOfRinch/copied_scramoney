@@ -11,6 +11,7 @@ gem 'sprockets-rails'
 
 # Use mysql as the database for Active Record
 # gem 'mysql2'
+gem 'pg'
 gem 'sass', '~>3.7'
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -75,7 +76,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'letter_opener_web'
   gem 'rspec-rails'
-  gem 'mysql2'
 end
 
 group :development do
@@ -99,7 +99,3 @@ group :test do
   gem 'webdrivers'
 end
 gem "dockerfile-rails", ">= 1.6", :group => :development
-
-group :production do
-  gem 'pg'
-end

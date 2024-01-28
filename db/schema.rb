@@ -11,8 +11,11 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
-  create_table "approval_requests", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "status", limit: 1, default: 0, null: false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "approval_requests", force: :cascade do |t|
+    t.integer "status", limit: 2, default: 0, null: false
     t.text "comment"
     t.bigint "user_id", null: false
     t.bigint "family_id", null: false
@@ -22,8 +25,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["user_id"], name: "index_approval_requests_on_user_id"
   end
 
-  create_table "approval_statuses", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.integer "status", limit: 1, default: 0, null: false
+  create_table "approval_statuses", force: :cascade do |t|
+    t.integer "status", limit: 2, default: 0, null: false
     t.text "comment"
     t.bigint "approval_request_id", null: false
     t.bigint "user_id", null: false
@@ -33,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["user_id"], name: "index_approval_statuses_on_user_id"
   end
 
-  create_table "authentications", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "authentications", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "provider", null: false
     t.string "uid", null: false
@@ -43,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["user_id"], name: "index_authentications_on_user_id"
   end
 
-  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,7 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["family_id"], name: "index_categories_on_family_id"
   end
 
-  create_table "families", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "families", force: :cascade do |t|
     t.string "family_name", null: false
     t.string "family_nickname"
     t.string "family_avatar"
@@ -62,7 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.integer "status", default: 0
   end
 
-  create_table "nonces", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "nonces", force: :cascade do |t|
     t.bigint "user_id"
     t.string "nonce", null: false
     t.datetime "expires_at", null: false
@@ -71,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["user_id"], name: "index_nonces_on_user_id"
   end
 
-  create_table "notices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "notices", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.integer "notice_type", default: 0, null: false
@@ -85,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["user_id"], name: "index_notices_on_user_id"
   end
 
-  create_table "reads", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "reads", force: :cascade do |t|
     t.boolean "checked", default: false
     t.bigint "notice_id", null: false
     t.bigint "user_id", null: false
@@ -95,7 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["user_id"], name: "index_reads_on_user_id"
   end
 
-  create_table "task_users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "task_users", force: :cascade do |t|
     t.bigint "task_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -107,7 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["user_id"], name: "index_task_users_on_user_id"
   end
 
-  create_table "tasks", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
     t.integer "points", null: false
@@ -120,7 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["family_id"], name: "index_tasks_on_family_id"
   end
 
-  create_table "temporary_family_data", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "temporary_family_data", force: :cascade do |t|
     t.string "name"
     t.string "nickname"
     t.string "avatar"
@@ -131,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_181710) do
     t.index ["approval_request_id"], name: "index_temporary_family_data_on_approval_request_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "crypted_password"
     t.string "salt"

@@ -247,7 +247,6 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    mysql2 (0.5.5)
     net-http (0.4.1)
       uri
     net-imap (0.4.8)
@@ -493,7 +492,6 @@ DEPENDENCIES
   letter_opener_web
   line-bot-api
   mini_magick
-  mysql2
   pg
   puma (~> 5.0)
   rails (~> 7.0.8)
