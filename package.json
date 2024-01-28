@@ -42,5 +42,6 @@
     "@babel/preset-env": "^7.23.6",
     "babel-jest": "^29.7.0",
     "webpack-dev-server": "^3"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }

@@ -1,4 +1,4 @@
 default_url_options:
-  host: 'scramoney-e5c31290853e.herokuapp.com'
+  host: 'scramoney-8f16a14b443d.herokuapp.com'
 sorcery:
-  line_callback_url: 'https://scramoney-e5c31290853e.herokuapp.com/oauth/callback?provider=line'
+  line_callback_url: 'https://scramoney-8f16a14b443d.herokuapp.com/oauth/callback?provider=line'
