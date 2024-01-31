@@ -1,8 +1,7 @@
 <!--そのカテゴリに属するタスク一覧のページだよ。こっちはタスク記録画面へ飛ぶよ-->
 <div class="container-fluid">
   <div class="center-block">
-    <!--コメントを残しとかないとfなんて知らないよってエラー出るから残すよ-->
-    <!--<%= form_with model: @task_user, url: family_records_path(@family) do |f| %>-->
+    <%= form_with model: @record, url: family_records_path(@family) do |f| %>
       <%= turbo_frame_tag @category do %>
         <%= link_to new_family_record_path(@family), class: "text-decoration-none text-body" do %>
           <div class="row bg-light py-2 mx-auto border-bottom border-top border-secondary">
@@ -11,12 +10,12 @@
           </div>
         <% end %>
         <% @category.tasks.each do |task| %>
-          <%= render partial: 'task_for_record', locals: { task: task, record: @record } %>
+          <%= render partial: 'task_for_record', locals: { task: task, record: @record, f: f } %>
         <% end %>
         <div class="bg-light center-block text-center mb-2 border-top">
           <%= f.submit '記録', class: 'text-center btn btn-success my-2' %>
         </div>
       <% end %>
-    <!--<% end %>-->
+    <% end %>
   </div>
 </div>

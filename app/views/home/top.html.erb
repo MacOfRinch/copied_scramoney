@@ -1,1 +1,43 @@
-
+<div class="bg-warning sticky-top py-2 center-block">
+  <div class="container-fluid text-center">
+    <%= link_to 'ログインページへ', login_path, class: 'btn btn-primary' %>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="center-block">
+    <div class="text-center">
+      <h1 class="bg-light p-2 rounded">Scramoneyへようこそ！</h1>
+    </div>
+    <div class="bg-light p-2 rounded">
+      <h3 class="text-center">アプリ概要</h3>
+      <p>
+        本サイトは、<span class="text-danger">お小遣いの奪い合い</span>を通して家事や仕事、勉強といった日々の家族の頑張りをポイント化し、貯まったポイントに応じてお小遣いを振り分けるWebアプリです。
+      </p>
+      <p>お小遣いについてはあらかじめ予算を決めていただき(後から変更できます)、その中から奪い合っていただきます。</p>
+      <p>頑張れば頑張るほど、<span class="text-danger">お金</span>がもらえます！</p>
+    </div>
+    <div class="bg-light p-2 mt-2 rounded">
+      <h3 class="text-center">アプリの使い方</h3>
+      <p>家族情報を登録・メンバーを招待後、画面下部のメニューから<span class="text-success">記録</span>をタップ(またはクリック)します。↓</p>
+      <div class="center-block text-center">
+        <%= image_tag asset_path('scramoney_tutorial_1.png'), class:"img-thumbnail" %>
+      </div>
+      <p>行ったタスクのカテゴリを選び、タップします。↓</p>
+      <div class="center-block text-center">
+        <%= image_tag asset_path('scramoney_tutorial_2.png'), class:"img-thumbnail" %>
+      </div>
+      <p>行ったタスクの回数や時間数、人数(朝食を何人分作った、など)をボタンから入力し、<%= link_to '記録', '#', class:'btn btn-success' %>をタップします。↓</p>
+      <div class="center-block text-center">
+        <%= image_tag asset_path('scramoney_tutorial_3.png'), class:"img-thumbnail" %>
+      </div><br>
+      <h4 class="text-center">基本的な使い方はこれだけです。月初めに今月のあなたのお小遣いが通知されます。</h4>
+      <p>あとは、ホーム画面で自分や家族の頑張り状況を見ることができます。</p>
+      <p>タスクの追加や編集、削除は、画面下部のメニューから<span class="text-success">設定</span>をタップし、<span class="text-success">タスク管理</span>を選択してください。</p><br>
+      <p>さらに、<%= link_to 'LINE連携', '#', class: 'btn btn-success' %>をしておくと、よりアプリが使いやすくなります。(個人情報はアプリの通知以外の目的で使用しません。)</p>
+    </div>
+    <div class="bg-light p-2 text-center mb-4 rounded">
+      <h4>さぁ、始めましょう！</h4>
+      <%= link_to 'ログインページへ', login_path, class:'btn btn-primary' %>
+    </div>
+  </div>
+</div>

@@ -19,7 +19,7 @@ class RecordsController < ApplicationController
       id = task_id.to_i
       count = task_data[:count].to_i
       task = Task.find(id)
-      TaskUser.create!(task_id: id, user_id: current_user.id, family_id: @family.id, count: count) if count > 0
+      TaskUser.create!(task_id: id, user_id: current_user.id, family_id: @family.id, count: count)
       current_user.update_column(:points, (current_user.points + task.points * count))
     end
     @family.users.each do |user|

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h1>2つのステップを終えて始めましょう！</h1>
+      <h1 class="bg-light p-2">2つのステップを終えて始めましょう！</h1>
       <% if @format.errors.any? %>
         <div class="alert alert-danger">
           <% @format.errors.full_messages.each do |message| %>
@@ -10,7 +10,7 @@
         </div>
       <% end %>
       <%= form_with model: @format, url: formats_path, local: true do |f| %>
-        <h2>ステップ1-1:あなたの家族について教えてください</h2>
+        <h2 class="bg-light p-2">ステップ1-1:あなたの家族について教えてください</h2>
         <div class="form-group">
           <%= f.label :family_name, '名字(必須)' %>
           <%= f.text_field :family_name, value: @format.family_name, class: "form-control", placeholder: '例：山田' %>
@@ -23,7 +23,7 @@
           <%= f.label :budget, 'お小遣い予算(必須)' %>
           <%= f.number_field :budget, value: @format.budget, step: 1000, class: "form-control" %>
         </div><br>
-        <h2>ステップ1-2:あなたについて教えてください</h2>
+        <h2 class="bg-light p-2">ステップ1-2:あなたについて教えてください</h2>
         <div class="form-group">
           <%= f.label :name, '名前(必須)' %>
           <%= f.text_field :name, value: @format.name, class: "form-control", placeholder: '例：太郎' %>

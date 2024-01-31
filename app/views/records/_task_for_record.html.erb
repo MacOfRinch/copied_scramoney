@@ -5,19 +5,17 @@
     <div class="col-1 my-auto"><%= task.points %></div>
     <div class="col-4 mx-0 my-auto px-0" data-controller="record">
       <div class="row">
-        <!--<%= form_with model: @task_user, url: family_records_path(@family) do |f| %>-->
         <div class="col-3 ms-0 my-auto">
           <button type="button" class="btn btn-outline-danger rounded-circle btn-sm" data-action="click->record#decrement">-</button>
         </div>
         <div class="col-6 my-auto" style="width: 50%;">
-          <%= f.number_field "tasks[#{task.id}][count]", class: 'form-control form-control-sm', value: record.count, disabled: true, data: { task_id: task.id, record_target: "count", lock_target: "count" } %>
+          <%= f.number_field "tasks[#{task.id}][count]", class: 'form-control form-control-sm', value: record.count, disabled: true, data: { task_id: task.id, record_target: "count" } %>
           <%= hidden_field_tag "tasks[#{task.id}][id]", task.id %>
           <%= hidden_field_tag "task_id", task.id %>
         </div>
         <div class="col-3 ms-0 ps-0 my-auto">
           <button type="button" class="btn btn-outline-primary rounded-circle btn-sm" data-action="click->record#increment">+</button>
         </div>
-        <!--<% end %>-->
       </div>
     </div>
   </div>

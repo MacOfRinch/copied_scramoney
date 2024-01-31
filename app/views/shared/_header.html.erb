@@ -2,7 +2,7 @@
   <nav class="navbar navbar-light bg-warning">
     <div class="container-fluid sticky-top d-flex">
         <%= link_to family_path(@family) do %>
-          <%= image_tag 'scramoney_rounded_icon', size: "35x35" %>
+          <%= image_tag asset_path('scramoney_rounded_icon.png'), size: "35x35" %>
         <% end %>
           <!-- <input type="button" class="navbar-brand inline-box" value="<戻る"/> -->
           <% if Read.where(user_id: current_user.id, checked: false).present? %>

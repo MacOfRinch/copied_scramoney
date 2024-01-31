@@ -6,6 +6,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap"
 import "popper"
-import './custom/line'
+import 'custom/line'
 import "chartkick"
 import "Chart.bundle"
