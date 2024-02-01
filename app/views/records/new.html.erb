@@ -7,9 +7,9 @@
         <div class="col-1 bg-light py-2 mx-auto"><strong>pt</strong></div>
         <div class="col-4 bg-light py-2 mx-auto text-center"><strong>カウント</strong></div>
       </div>
-      <% @categories.each do |category| %>
-        <%= render partial: 'category_for_record', locals: { category: category } %>
-      <% end %>
+        <% @categories.each do |category| %>
+          <%= render partial: 'category_for_record', locals: { category: category } %>
+        <% end %>
     </div>
   </div>
   <div>　</div>
