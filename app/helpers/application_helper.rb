@@ -12,11 +12,11 @@ module ApplicationHelper
     (family.family_nickname.presence || "#{family.family_name} 家")
   end
 
-  def show_qrcode(url, size)
+  def show_qrcode(path, size)
     if Rails.env.production?
-      qrcode = RQRCode::QRCode.new("https://scramoney-e5c31290853e.herokuapp.com#{url}")
+      qrcode = RQRCode::QRCode.new("https://scramoney.fly.dev#{path}")
     elsif Rails.env.development? || Rails.env.test?
-      qrcode = RQRCode::QRCode.new("https://a0b5-115-37-180-231.ngrok-free.app#{url}")
+      qrcode = RQRCode::QRCode.new("https://a0b5-115-37-180-231.ngrok-free.app#{path}")
     end
     ChunkyPNG::Image.from_datastream(qrcode.as_png.resize(size, size).to_datastream).to_data_url
   end
