@@ -18,7 +18,7 @@
         <% if @link_token %>
           <%= f.hidden_field :linkToken, value: @link_token %>
         <% end %>
-        <div class="actions my-2" data-controller="hello">
+        <div class="actions my-2">
           <%= f.submit 'ログイン', { class: 'btn btn-primary' } %>
         </div>
         <% unless @link_token %>
@@ -38,9 +38,11 @@
         <% end %>
       <% end %>
       <br>
-      <div class="text-center">
-        <%= button_to 'ゲストとしてログイン', login_as_guest_path, class: "btn btn-primary" %>
-      </div>
+      <% unless @link_token %>
+        <div class="text-center">
+          <%= button_to 'ゲストとしてログイン', login_as_guest_path, class: "btn btn-primary" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

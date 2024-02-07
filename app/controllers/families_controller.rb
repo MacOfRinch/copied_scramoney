@@ -20,6 +20,9 @@ class FamiliesController < ApplicationController
   end
 
   def show
+    @link_token = params[:linkToken]
+    @nonce = params[:nonce]
+
     users = @family.users
     @each_name_points = each_name_points(users)
     @each_pocket_money = each_pocket_money(users)

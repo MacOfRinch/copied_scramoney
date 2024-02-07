@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'oauths/oauth'
   get 'oauths/callback'
   get 'hello/index', to: 'hello#index'
+  post 'hello/create', to: 'hello#create'
+
   if Rails.env.development? || Rails.env.test?
     mount Sidekiq::Web => "/sidekiq"
   end

@@ -5,7 +5,7 @@
       <h1>タスク管理</h1>
     </div>
     <div class="center-block">-->
-      <%= render 'modal', title: '編集' do %>
+      <%= render 'modal', title: 'タスク編集' do %>
         <%= render partial: 'edit_form', locals: { task: @task, categories: @categories, category: @category } %>
       <% end %>
     <!--</div>

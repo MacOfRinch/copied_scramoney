@@ -17,8 +17,9 @@ class UserSessionsController < ApplicationController
     # linkTokenがあった場合、後付けでのアカウント連携を行うよ。有効期限10分のnonceを発行して認証に使うよ。
     if @user && @link_token
       new_nonce = Nonce.create!(user_id: @user.id, nonce: @user.id.to_s + SecureRandom.hex(16), expires_at: Time.now + 10.minutes)
-      nonce = new_nonce.nonce
-      redirect_to "https://access.line.me/dialog/bot/accountLink?linkToken=#{@link_token}&nonce=#{nonce}", allow_other_host: true
+      @nonce = new_nonce.nonce
+      # redirect_to "https://access.line.me/dialog/bot/accountLink?linkToken=#{@link_token}&nonce=#{nonce}", allow_other_host: true
+      redirect_to controller: "families", action: "show", id: @user.family.id, linkToken: @link_token, nonce: @nonce
     elsif @user
       redirect_to family_path(@user.family), success: 'ログインに成功しました！'
     else

@@ -3,15 +3,12 @@
     <%= bootstrap_form_with model: task, url: family_category_tasks_path(family, category), data: { action: "turbo:submit-end->modal#close" } do |f| %>
       <ul class="list-unstyled">
         <li>
-          <%= f.label :title, 'タスク名(必須)：' %>
           <%= f.text_field :title %><br>
         </li>
         <li>
-          <%= f.label :description, 'タスク詳細：' %>
           <%= f.text_field :description %><br>
         </li>
         <li>
-          <%= f.label :points, '基礎ポイント(必須)：' %>
           <%= f.number_field :points %>pt<br>
         </li>
       </ul>

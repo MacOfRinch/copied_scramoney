@@ -5,6 +5,9 @@
       <%= "総取得ポイント: #{@family.sum_points}pt" %>
     </div>
   </div>
+  <% if @link_token && @nonce %>
+    <div class="text-center bg-light mt-5"><%= link_to 'アカウント連携を完了する', "https://access.line.me/dialog/bot/accountLink?linkToken=#{@link_token}&nonce=#{@nonce}", class: 'btn btn-primary' %></div>
+  <% end %>
   <% if @family.users.size < 2 %>
     <div class="text-center bg-light mt-5"><p>ステップ2を終えていません：<br><%= link_to 'まずはこちらから家族を招待しましょう！', family_invitation_path(@family) %></p></div>
   <% elsif @family.sum_points <= 0 %>

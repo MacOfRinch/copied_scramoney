@@ -3,19 +3,15 @@
     <div class="bg-light py-2 my-2 mx-auto rounded">
       <ul class="list-unstyled ps-2">
         <li>
-          <p><%= f.label :name, 'カテゴリ：' %>
           <%= f.collection_select :category_id, categories, :id, :name, { selected: task.category_id }, class: 'form-control' %></p>
         </li>
         <li>
-          <p><%= f.label :title, 'タスク：' %>
           <%= f.text_field :title, value: task.title, class: 'form-control px-2' %></p>
         </li>
         <li>
-          <p><%= f.label :description, '詳細：' %>
           <%= f.text_area :description, value: task.description, class: 'form-control px-2', size: '10x3' %></p>
         </li>
         <li>
-          <p><%= f.label :points, '基礎ポイント：' %>
           <%= f.number_field :points, value: task.points %> pt</p>
         </li>
       </ul>
