@@ -40,11 +40,11 @@
   - Ruby3.1.2
   - Rails7.0.4
 - データベース
-  - MySQL2
+  - postgres
 - 描画関係
   - HTML.erb
   - Bootstrap5
   - JavaScript(Stimulus)
   - HotWire
 - デプロイ
-  - heroku
+  - Fly.io
