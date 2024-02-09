@@ -27,4 +27,26 @@ module ApplicationHelper
   def turbo_stream_flash
     turbo_stream.update "flash", partial: "shared/flash_messages"
   end
+
+  def default_meta_tags
+    {
+      site: 'Scramoney',
+      title: 'お小遣いの奪い合いアプリ【Scramoney】',
+      reverse: true,
+      charset: 'utf-8',
+      description: '家族や同居人とお互いの頑張りを認め合いながら、お小遣いをめぐって競い合うWebアプリです。',
+      keywords: '',
+      canonical: request.original_url,
+      separator: '|',
+      og: {
+        site_name: :site,
+        title: :title,
+        description: :description,
+        type: 'website',
+        url: request.original_url,
+        image: image_url('scramoney_icon.jpeg'),
+        local: 'ja-JP'
+      }
+    }
+  end
 end
