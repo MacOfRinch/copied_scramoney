@@ -39,3 +39,5 @@ config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
 /config/certs/*
+/ilovemk0206
+/ilovemk0206-cert.pub
