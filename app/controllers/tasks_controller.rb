@@ -9,7 +9,7 @@ class TasksController < ApplicationController
   def create
     @category = Category.find_by(id: params[:category_id])
     @task = Task.new(task_params)
-    @task.category_id = @category.id
+    @task.category_id ||= @category.id
     @task.family_id = @family.id
     if @task.save
       flash.now[:success] = 'タスクが登録されました'
@@ -43,7 +43,7 @@ class TasksController < ApplicationController
         user.update_column(:points, user.calculate_points)
         user.update_column(:pocket_money, user.calculate_pocket_money)
       end
-      redirect_to family_category_path(@family, @category), success: 'タスク情報が更新されました'
+      redirect_to family_category_tasks_path(@family, @category), success: 'タスク情報が更新されました'
     else
       flash.now[:danger] = '入力内容に誤りがあります'
       render :edit, :unprocessable_entity
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
     category = Category.find(params[:category_id])
     if task
       records = TaskUser.where(task_id: task.id)
-      if records.present?
+      unless records.nil?
         records.each do |record|
           record.user.update_column(:points, record.user.points - record.task.points * record.count)
           record.destroy!

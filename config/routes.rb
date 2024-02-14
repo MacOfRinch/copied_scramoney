@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   if Rails.env.development? || Rails.env.test?
     mount Sidekiq::Web => "/sidekiq"
   end
-  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development? || Rails.env.test?
   resources :password_resets, only: [:new, :create, :edit, :update]
   post 'line_events', to: 'line_events#recieve'
   delete 'line_events', to: 'line_events#unconnect'

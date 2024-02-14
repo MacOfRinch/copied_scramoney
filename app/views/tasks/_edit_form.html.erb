@@ -1,5 +1,5 @@
 <%= turbo_frame_tag task do %>
-  <%= bootstrap_form_with model: task, url: family_category_task_path(@family, category, task), data: { action: "turbo:submit-end->modal#close" } do |f| %>
+  <%= bootstrap_form_with model: task, url: family_category_task_path(@family, category, task), data: { action: "turbo:submit-end->modal#closeAndReload" } do |f| %>
     <div class="bg-light py-2 my-2 mx-auto rounded">
       <ul class="list-unstyled ps-2">
         <li>

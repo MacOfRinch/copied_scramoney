@@ -1,4 +1,4 @@
 default_url_options:
-  host: 'scramoney.fly.dev'
+  host: 'scramoney.com'
 sorcery:
-  line_callback_url: 'https://scramoney.fly.dev/oauth/callback?provider=line'
+  line_callback_url: 'https://scramoney.com/oauth/callback?provider=line'

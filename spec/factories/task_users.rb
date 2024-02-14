@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :task_user do
+  factory :record, class: "TaskUser" do
     
   end
 end

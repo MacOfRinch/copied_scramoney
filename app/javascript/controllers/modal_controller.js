@@ -20,4 +20,11 @@ export default class extends Controller {
     this.modal.hide();
     window.location.reload();
   }
+
+  closeAndReload(event) {
+    if (event.detail.success) {
+      this.modal.hide();
+      location.reload();
+    }
+  }
 }
