@@ -14,7 +14,7 @@ module ApplicationHelper
 
   def show_qrcode(path, size)
     if Rails.env.production?
-      qrcode = RQRCode::QRCode.new("https://scramoney.fly.dev#{path}")
+      qrcode = RQRCode::QRCode.new("https://scramoney.com#{path}")
     elsif Rails.env.development? || Rails.env.test?
       qrcode = RQRCode::QRCode.new("https://a0b5-115-37-180-231.ngrok-free.app#{path}")
     end

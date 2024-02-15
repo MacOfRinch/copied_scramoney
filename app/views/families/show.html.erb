@@ -21,7 +21,7 @@
     </div>
     <div class="center-block bg-light">
       <div class="text-center">
-        <%= "お小遣い予算: #{@family.budget.to_s(:delimited)}円" %>
+        <%= "お小遣い予算: #{@family.budget.to_fs(:delimited)}円" %>
         <%= column_chart @each_pocket_money, id: 'column-chart' %>
       </div>
     </div>

@@ -4,10 +4,7 @@ namespace :budget_of_last_month do
     families = Family.all
     families.each do |family|
       family.update_column(:budget_of_last_month, family.budget)
-      users = family.users
-      users.each do |user|
-        user.update_columns(pocket_money_of_last_month: user.pocket_money, points_of_last_month: user.points)
-      end
+      family.users.each { |user| user.update_columns(pocket_money_of_last_month: user.pocket_money, points_of_last_month: user.points) }
     end
   end
 end
