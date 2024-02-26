@@ -7,7 +7,6 @@ class ApprovalRequestsController < ApplicationController
     status = ApprovalStatus.find_by(approval_request_id: @request.id, user_id: current_user.id)
     status.update!(status: :accept)
     @family.apply_changes_if_approved(@request)
-    # 承認したものは通知から削除するよ。
     Notice.find_by(approval_request_id: @request.id, user_id: current_user.id).destroy!
     redirect_to family_path(@family), success: '変更を承認しました'
   end
@@ -16,7 +15,6 @@ class ApprovalRequestsController < ApplicationController
     status = ApprovalStatus.find_by(approval_request_id: @request.id, user_id: current_user.id)
     status.update!(status: :refuse)
     @family.apply_changes_if_approved(@request)
-    # 上と同様、拒否ったものは通知から削除するよ。
     if @request.requester.line_flag
       message = {
         type: 'text',
@@ -35,9 +33,9 @@ class ApprovalRequestsController < ApplicationController
   end
 
   def line_client
-    @line_client = Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-    }
+    @line_client = Line::Bot::Client.new do |config|
+      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
+    end
   end
 end

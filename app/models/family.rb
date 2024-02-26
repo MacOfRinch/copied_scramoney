@@ -3,8 +3,6 @@ class Family < ApplicationRecord
 
   after_create :copy_default_categories_and_tasks
 
-  # mount_uploader :family_avatar, ImageUploader
-
   before_create lambda {
                   while id.blank? || Family.find_by(id:).present?
                     self.id = format('%016d', SecureRandom.random_number(10**16))
@@ -23,25 +21,14 @@ class Family < ApplicationRecord
   validates :family_name, presence: true
   validates :budget, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1000 }
 
-  enum :status, {
-    normal: 0,
-    guest: 1
-  }
+  enum :status, { normal: 0, guest: 1 }
 
-  # 家族の総取得ポイント数を計算するメソッドだよ。
   def sum_points
     points = 0
-    users.each do |user|
-      next if user.task_users.this_month.blank?
-
-      user.task_users.this_month.each do |record|
-        points += record.task.points * record.count
-      end
-    end
+    users.each { |user| points += user.points }
     points
   end
 
-  # いい方法見つかったら消すよ。
   def sum_points_of_last_month
     points = 0
     users.each do |user|
@@ -58,6 +45,7 @@ class Family < ApplicationRecord
     result = false
     users.each do |user|
       next if user.calculate_points < sum_points
+
       result = true
     end
     result
@@ -70,7 +58,6 @@ class Family < ApplicationRecord
     default_categories.each do |category|
       new_category = category.dup
       new_category.family_id = id
-      # その他を常に最後にしたいからcreated_atの値をいじるよ。
       new_category.created_at = 'Fry, 31 Dec 9999 23:59:59' if new_category.name == 'その他'
       new_category.save
     end
@@ -101,41 +88,44 @@ class Family < ApplicationRecord
 
   def apply_changes_if_approved(request)
     request.check_if_approved
-    if request.status == 'accepted'
+    case request.status
+    when 'accepted'
       merge_temporary_data(request)
-      # 承認されたことをLINEで通知するよ。
       requester = request.requester
       users.each { |user| user.update_column(:pocket_money, user.calculate_pocket_money) }
       if requester.line_flag
         message = {
           type: 'text',
-          text: "あなたの申請が承認され、家族プロフィールが更新されました！\n名字：#{requester.family.family_name}\nニックネーム：#{requester.family.family_nickname}\nお小遣い予算：#{requester.family.budget.to_s(:delimited)}円"
-                  }
-        line_client.push_message(request.requester.line_user_id, message)
+          text: "あなたの申請が承認され、家族プロフィールが更新されました！\n名字：#{requester.family.family_name}\nニックネーム：#{requester.family.family_nickname}\nお小遣い予算：#{requester.family.budget.to_fs(:delimited)}円"
+        }
+        line_client.push_message(requester.line_user_id, message)
       end
-    end
-    unless request.status == 'waiting'
+      users.each do |user|
+        Notice.create(title: '家族プロフィールが更新されました', family_id: self.id, user_id: user.id,
+                      notice_type: :accepted_approvement)
+      end
+    when 'refused'
       notices = Notice.where(approval_request_id: request.id)
-      notices.each do |notice|
-        notice.destroy
+      notices.destroy_all
+      users.each do |user|
+        Notice.create(title: '家族プロフィールの変更が拒否されました', family_id: self.id, user_id: user.id,
+                      notice_type: :refused_approvement)
       end
     end
   end
 
-  # プロフィール編集リクエストが通った時に一時保管データをマージするメソッドだよ。上で使ってるよ。
   def merge_temporary_data(request)
     temporary_data = TemporaryFamilyDatum.find_by(approval_request_id: request.id)
     update_columns(family_name: temporary_data.name,
                    family_nickname: temporary_data.nickname,
                    family_avatar: temporary_data.avatar,
-                   budget: temporary_data.budget
-                   )
+                   budget: temporary_data.budget)
   end
 
   def line_client
-    @line_client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-    }
+    @line_client ||= Line::Bot::Client.new do |config|
+      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
+    end
   end
 end

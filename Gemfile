@@ -1,10 +1,10 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.8"
+gem 'rails', '~> 7.0.8'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -30,7 +30,7 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0"
+gem 'redis', '~> 4.0'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -44,7 +44,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 gem 'bootstrap', '~> 5.2.0'
-gem "bootstrap_form"
+gem 'bootstrap_form'
 gem 'jquery-rails'
 gem 'sassc-rails'
 # Use Sass to process CSS
@@ -52,25 +52,25 @@ gem 'sassc-rails'
 gem 'sorcery'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
-gem 'chartkick'
-gem 'cssbundling-rails'
-gem 'font-awesome-rails'
-gem "font-awesome-sass", "~> 6.5.1"
 gem 'carrierwave'
+gem 'chartkick'
 gem 'config'
+gem 'cssbundling-rails'
 gem 'dotenv-rails'
+gem 'font-awesome-rails'
+gem 'font-awesome-sass', '~> 6.5.1'
 gem 'mini_magick'
 # gem 'whenever', require: false
+gem 'bootstrap5-kaminari-views'
 gem 'chunky_png'
 gem 'googleauth'
 gem 'kaminari'
-gem 'bootstrap5-kaminari-views'
+gem 'line-bot-api'
+gem 'meta-tags'
+gem 'rack-cors'
 gem 'rqrcode'
 gem 'rqrcode_png'
-gem 'line-bot-api'
 gem 'sidekiq'
-gem 'rack-cors'
-gem "meta-tags"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -99,4 +99,4 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
-gem "dockerfile-rails", ">= 1.6", :group => :development
+gem 'dockerfile-rails', '>= 1.6', group: :development

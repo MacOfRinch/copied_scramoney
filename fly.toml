@@ -38,3 +38,8 @@ console_command = '/rails/bin/rails console'
 
 [[services]]
   processes = ["web"]
+
+[[services.ports]]
+  handlers = ["http"]
+  port = 8080
+  force_https = true

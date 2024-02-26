@@ -1,15 +1,14 @@
-
-  <div class="row bg-light py-2 border-top mx-auto">
-    <div class="col-6"><%= task.title %></div>
-    <div class="col-3">
-      <%= task.points %>
-    </div>
-    <div class="col-3">
-      <%= link_to edit_family_category_task_path(@family, @category, task), class: "text-success", data: { turbo_frame: 'modal', action: "click->modal#show" } do %>
-        <i class="fa-solid fa-pen"></i>
-      <% end %>
-      <%= link_to family_category_task_path(@family, @category, task), class: "text-danger ms-3", data: { turbo_method: :delete, turbo_confirm: 'ポイント取得履歴からも削除されます。本当に削除しますか？' } do %>
-        <i class="fa-regular fa-trash-can"></i>
-      <% end %>
-    </div>
+<div class="row bg-light py-2 border-top mx-auto">
+  <div class="col-6"><%= task.title %></div>
+  <div class="col-3">
+    <%= task.points %>
   </div>
+  <div class="col-3">
+    <%= link_to edit_family_category_task_path(@family, @category, task), class: "text-success", data: { turbo_frame: 'modal' } do %>
+      <i class="fa-solid fa-pen"></i>
+    <% end %>
+    <%= link_to family_category_task_path(@family, @category, task), class: "text-danger ms-3", data: { turbo_method: :delete, turbo_confirm: 'ポイント取得履歴からも削除されます。本当に削除しますか？' } do %>
+      <i class="fa-regular fa-trash-can"></i>
+    <% end %>
+  </div>
+</div>

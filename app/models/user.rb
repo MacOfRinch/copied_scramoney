@@ -5,8 +5,6 @@ class User < ApplicationRecord
 
   default_scope -> { order(created_at: :asc) }
 
-  # mount_uploader :avatar, ImageUploader
-
   has_many :task_users, dependent: :destroy
   has_many :tasks, through: :task_users
   has_many :approval_requests
@@ -25,13 +23,10 @@ class User < ApplicationRecord
   validates :reset_password_token, uniqueness: true, allow_nil: true
   validates :line_user_id, uniqueness: true, allow_nil: true
 
-  after_create lambda { self.pocket_money ||= 0 }
-
   attr_accessor :linkToken
 
-  # sorceryのload_from_providerで使うメソッドだよ。
   def self.find_by_oauth_provider(provider, uid)
-    find_by(provider: provider, line_user_id: uid)
+    find_by(provider:, line_user_id: uid)
   end
 
   def cancel(task)
@@ -39,17 +34,14 @@ class User < ApplicationRecord
   end
 
   def calculate_points
-    # self.tasks.pluck(:points).sum
     task_users.this_month.map { |record| record.task.points * record.count }.sum
   end
 
   def sum_points_of_the_day(date)
-    task_users.where(created_at: date.all_day).map{ |record| record.task.points * record.count }.sum
+    task_users.where(created_at: date.all_day).map { |record| record.task.points * record.count }.sum
   end
 
-  # いい方法見つかったら消す
   def calculate_points_of_last_month
-    # self.tasks.pluck(:points).sum
     task_users.last_month.map { |record| record.task.points * record.count }.sum
   end
 
@@ -71,11 +63,12 @@ class User < ApplicationRecord
     end
   end
 
-  # 端数を加味して最も次の1,000円単位に近い人から足していって、お小遣い額合計がちょうど予算になるようにできるだけ調整するメソッドだよ。
   def calculate_pocket_money
+    pocket_money = calculate_rounded_down_pocket_money[:rounded_down]
+    return if family.sum_points == 0
+
     sum_of_rounded_down_pm = family.users.sum { |user| user.calculate_rounded_down_pocket_money[:rounded_down] }
     difference = ((family.budget / Unit) * Unit - sum_of_rounded_down_pm) / Unit
-    pocket_money = calculate_rounded_down_pocket_money[:rounded_down]
     if difference >= 1
       list = []
       family.users.each do |user|
@@ -88,10 +81,10 @@ class User < ApplicationRecord
       end
       pocket_money += Unit if selected_users.include?(self) && difference >= selected_users.size
     end
+
     pocket_money
   end
 
-  # 1,000円単位で切り捨てたお小遣い額と切り捨てた額をハッシュ形式で返すメソッドだよ。
   def calculate_rounded_down_pocket_money
     total = family.budget
     if family.sum_points.zero?

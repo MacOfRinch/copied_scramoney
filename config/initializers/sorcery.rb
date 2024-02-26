@@ -4,7 +4,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = [:reset_password, :remember_me, :external]
+Rails.application.config.sorcery.submodules = %i[reset_password remember_me external]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -222,11 +222,10 @@ Rails.application.config.sorcery.configure do |config|
   config.line.key = ENV['LINE_KEY']
   config.line.secret = ENV['LINE_SECRET']
   config.line.callback_url = Settings.sorcery[:line_callback_url]
-  config.line.scope = "profile"
-  config.line.bot_prompt = "normal"
-  config.line.user_info_mapping = { name: 'displayName', line_user_id: 'userId' }# Userモデルの属性名: LINEのパラメータ
+  config.line.scope = 'profile'
+  config.line.bot_prompt = 'normal'
+  config.line.user_info_mapping = { name: 'displayName', line_user_id: 'userId' } # Userモデルの属性名: LINEのパラメータ
 
-  
   # For information about Discord API
   # https://discordapp.com/developers/docs/topics/oauth2
   # config.discord.key = "xxxxxx"
@@ -563,5 +562,5 @@ Rails.application.config.sorcery.configure do |config|
 
   # This line must come after the 'user config' block.
   # Define which model authenticates with sorcery.
-  config.user_class = "User"
+  config.user_class = 'User'
 end

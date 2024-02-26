@@ -1,7 +1,13 @@
 <%= turbo_frame_tag task do %>
   <div class="row bg-light py-2 mx-auto border-top">
     <div class="col-1 my-auto"></div>
-    <div class="col-6 my-auto"><%= task.title %></div>
+    <div class="col-6 my-auto">
+      <% if task.description %>
+        <%= task.title %><%= link_to '(詳細)', family_category_task_path(@family, category, task), class: 'text-decoration-none', data: { turbo_frame: 'modal' } %>
+      <% else %>
+        <%= task.title %>
+      <% end %>
+    </div>
     <div class="col-1 my-auto"><%= task.points %></div>
     <div class="col-4 mx-0 my-auto px-0" data-controller="record">
       <div class="row">
