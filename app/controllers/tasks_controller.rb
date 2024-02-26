@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update]
+  before_action :set_task, only: %i[edit update]
 
   def new
     @category = Category.find_by(id: params[:category_id])
@@ -13,7 +13,6 @@ class TasksController < ApplicationController
     @task.family_id = @family.id
     if @task.save
       flash.now[:success] = 'タスクが登録されました'
-      # redirect_to new_family_task_path(@family), success: 'タスクが登録されました'
     else
       flash.now[:danger] = '登録できませんでした'
       render :new, status: :unprocessable_entity
@@ -23,12 +22,10 @@ class TasksController < ApplicationController
   def index
     @category = Category.find(params[:category_id])
     @tasks = @category.tasks
-    # @categories = Category.where(family_id: @family.id)
-    # @tasks = Task.includes(:category).where(family_id: @family.id)
   end
 
   def show
-    @category = @task.category
+    @task = Task.find(params[:id])
   end
 
   def edit

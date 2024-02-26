@@ -10,7 +10,6 @@ class FamiliesController < ApplicationController
 
   def update
     if @family.update(family_params)
-      # 先月のお小遣いの初期値として今月のお小遣い予算額を入れておくよ。
       @family.update_column(:budget_of_last_month, @family.budget)
       redirect_to family_invitation_path(@family), success: 'ステップ1を完了しました。さっそく家族を招待しましょう！'
     else
@@ -44,7 +43,6 @@ class FamiliesController < ApplicationController
   end
 
   def invitation
-    # current_userの所属するfamilyがページのparamsと違ったりログインしてない人だったら招待リンクを貼るよ
     @family = Family.find(params[:family_id])
     @invitation_code = params[:family_id]
   end
@@ -62,7 +60,7 @@ class FamiliesController < ApplicationController
   def each_name_points(users)
     result = []
     if @family.sum_points != 0
-      users.sort_by{ |user| user.points }.reverse.each do |user|
+      users.sort_by { |user| user.points }.reverse.each do |user|
         array = ["#{display_name(user)}: #{user.points}pt (#{user.percent}%)", user.points]
         result << array
       end
@@ -73,7 +71,7 @@ class FamiliesController < ApplicationController
   def each_pocket_money(users)
     result = []
     if @family.sum_points != 0
-      users.sort_by{ |user| user.pocket_money }.reverse.each do |user|
+      users.sort_by { |user| user.pocket_money }.reverse.each do |user|
         array = ["#{display_name(user)}: #{user.pocket_money}円", user.pocket_money]
         result << array
       end
@@ -87,7 +85,7 @@ class FamiliesController < ApplicationController
       today = Date.today
       first_day = today.beginning_of_month
       day = first_day
-      while (today >= day) do
+      while today >= day
         day_records = user.sum_points_of_the_day(day)
         day_records ||= 0
         array = [l(day, format: :only_day), day_records]

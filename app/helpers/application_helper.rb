@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def display_family_name(family)
-    (family.family_nickname.presence || "#{family.family_name} 家")
+    family.family_nickname.presence || "#{family.family_name} 家"
   end
 
   def show_qrcode(path, size)
@@ -24,8 +24,9 @@ module ApplicationHelper
   def new_notice?
     Read.where(user_id: current_user.id, checked: false).present?
   end
+
   def turbo_stream_flash
-    turbo_stream.update "flash", partial: "shared/flash_messages"
+    turbo_stream.update 'flash', partial: 'shared/flash_messages'
   end
 
   def default_meta_tags

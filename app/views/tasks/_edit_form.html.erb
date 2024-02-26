@@ -16,7 +16,6 @@
         </li>
       </ul>
       <div class="center-block text-center">
-        <!--data: { turbo_frame: '_top' }をつけることで、このアクション時にページ全体を更新するようにお願いしてるよ。submitボタンでも使えるみたいだね。-->
         <%= f.submit '更新する', class: 'btn btn-primary my-2', data: { turbo_frame: '_top' } %>
         <%= link_to 'キャンセル', "#", class: 'btn btn-outline-secondary', data: { action: "click->modal#closeAbsolutely" } %>
       </div>

@@ -11,11 +11,10 @@ class ApprovalRequest < ApplicationRecord
 
   enum status: { waiting: 0, accepted: 1, refused: 2 }
 
-  # 全員の承認が通ってればリクエストの状態をacceptedにするよ。一つでもrefuseされたらrefusedになるよ。
   def check_if_approved
-    if approval_statuses.where(status: :refuse).exists?
+    if approval_statuses.refuse.exists?
       update_column(:status, :refused)
-    elsif approval_statuses.where(status: :waiting).exists?
+    elsif approval_statuses.waiting.exists?
       update_column(:status, :waiting)
     else
       update_column(:status, :accepted)

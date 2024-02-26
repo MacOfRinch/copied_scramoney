@@ -7,15 +7,11 @@ class NoticesController < ApplicationController
     @notices = Notice.where(family_id: @family.id, user_id: current_user.id)
   end
 
-  # 各ユーザーがページを開いたらReadモデルのcheckedをtrueにして既読にするよ。それまでは未読(flase)だよ。
   def show
     @notice = Notice.find(params[:id])
     @users = @family.users
     read = Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
-    if read
-      read.update(checked: true)
-    end
-    # このままでは月が過ぎると自動的に先月になってしまうから直さねばならぬ
+    read.update(checked: true) if read
     @each_name_points = each_name_points_of_last_month(@users)
     @each_pocket_money = each_pocket_money_of_last_month(@users)
     return unless @notice.notice_type == 'approval_request'
@@ -28,9 +24,7 @@ class NoticesController < ApplicationController
     @notice = Notice.find(params[:notice_id])
     @users = @family.users
     read = Read.find_by(user_id: current_user.id, notice_id: @notice.id, checked: false)
-    if read
-      read.update(checked: true)
-    end
+    read.update(checked: true) if read
 
     return unless @notice.notice_type == 'approval_request'
 
@@ -48,7 +42,7 @@ class NoticesController < ApplicationController
   def each_name_points_of_last_month(users)
     result = []
     if @family.sum_points != 0
-      users.sort_by{ |user| user.points_of_last_month }.reverse.each do |user|
+      users.sort_by { |user| user.points_of_last_month }.reverse.each do |user|
         array = ["#{display_name(user)}: #{user.points_of_last_month}pt (#{user.percent_of_last_month}%)",
                  user.points_of_last_month]
         result << array
@@ -60,7 +54,7 @@ class NoticesController < ApplicationController
   def each_pocket_money_of_last_month(users)
     result = []
     if @family.sum_points != 0
-      users.sort_by{ |user| user.pocket_money_of_last_month }.reverse.each do |user|
+      users.sort_by { |user| user.pocket_money_of_last_month }.reverse.each do |user|
         array = ["#{display_name(user)}: #{user.pocket_money_of_last_month.to_s(:delimited)}円",
                  user.pocket_money_of_last_month]
         result << array

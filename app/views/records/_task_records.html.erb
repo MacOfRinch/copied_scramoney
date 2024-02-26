@@ -2,13 +2,19 @@
   <div class="row bg-light py-2 mx-auto border">
     <div class="col-1 d-flex align-items-center">
       <% if record.user == current_user %>
-        <%= link_to family_task_user_path(@family, record), class: "text-danger", data: { turbo_method: :delete, turbo_confirm: 'ポイントが減ります。本当に削除しますか？', turbo_frame: '_top' } do %>
+        <%= link_to family_record_path(@family, record), class: "text-danger", data: { turbo_method: :delete, turbo_confirm: 'ポイントが減ります。本当に削除しますか？', turbo_frame: '_top' } do %>
           <i class="fa-regular fa-trash-can"></i>
         <% end %>
       <% end %>
     </div>
     <div class="col-3 d-flex align-items-center"><%= record.user.nickname.present? ? record.user.nickname : record.user.name %></div>
-    <div class="col-4 d-flex align-items-center"><%= record.count >= 2 ? "#{record.task.title} x #{record.count}" : record.task.title %></div>
+    <div class="col-4 align-items-center">
+      <% if record.task.description %>
+        <%= record.count >= 2 ? "#{record.task.title} x #{record.count}" : record.task.title %><%= link_to '(詳細)', family_category_task_path(@family, record.task.category, record.task), class: 'text-decoration-none', data: { turbo_frame: 'modal' } %>
+      <% else %>
+        <%= record.count >= 2 ? "#{record.task.title} x #{record.count}" : record.task.title %>
+      <% end %>
+    </div>
     <div class="col-1 d-flex align-items-center"><%= record.task.points * record.count.to_i %></div>
     <div class="col-3 d-flex align-items-center"><%= l(record.created_at, format: :short) %></div>
   </div>

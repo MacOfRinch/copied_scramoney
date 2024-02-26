@@ -6,25 +6,23 @@ class OauthsController < ApplicationController
   def oauth
     provider = auth_params[:provider]
     callback_url = if params[:invitation_code]
-                     "https://" + Settings.default_url_options.host + "/oauth/callback?provider=#{provider}&invitation_code=#{params[:invitation_code]}"
+                     'https://' + Settings.default_url_options.host + "/oauth/callback?provider=#{provider}&invitation_code=#{params[:invitation_code]}"
                    else
                      Settings.sorcery[:line_callback_url]
                    end
-    login_at(provider, callback_url: callback_url)
-    if params[:invitation_code]
-      # sessionメソッドでinvitation_codeをパラメータに追加するよ
-      session[:invitation_code] = params[:invitation_code]
-    end
+    login_at(provider, callback_url:)
+    return unless params[:invitation_code]
+
+    session[:invitation_code] = params[:invitation_code]
   end
 
   def callback
     invitation_code = session.delete(:invitation_code)
     provider = auth_params[:provider]
-    if (@user = login_from(provider, should_remember = params[:remember_me]))
+    if (@user = login_from(provider, params[:remember_me]))
       redirect_back_or_to family_path(@user.family), success: "#{provider.titleize.upcase}でログインしました"
     else
       @user = create_from(provider)
-      # 仮でランダムなアドレスとパスワードをセットしとくよ
       @user.email ||= fake_email
       @user.password ||= SecureRandom.urlsafe_base64
       @user.provider ||= provider
@@ -56,9 +54,7 @@ class OauthsController < ApplicationController
 
   def fake_email
     fake_email = "#{SecureRandom.urlsafe_base64}@example.com"
-    while User.find_by(email: fake_email).present?
-      fake_email = "#{SecureRandom.urlsafe_base64}@example.com"
-    end
+    fake_email = "#{SecureRandom.urlsafe_base64}@example.com" while User.find_by(email: fake_email).present?
     fake_email
   end
 end

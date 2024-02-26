@@ -1,0 +1,22 @@
+<%= turbo_frame_tag task do %>
+  <div class="center-block">
+    <ul class="list-unstyled">
+      <li>
+        <p><%= "カテゴリ：#{task.category.name}" %></p>
+      </li>
+      <li>
+        <p><%= "タスク名：#{task.title}" %></p>
+      </li>
+      <li>
+        <p>タスク詳細：<br>
+        <%= task.description %></p>
+      </li>
+      <li>
+        <p><%= "基礎ポイント：#{task.points} pt" %></p>
+      </li>
+    </ul>
+    <div class="center-block text-center">
+      <button type="button" class="btn btn-outline-secondary" data-action="click->modal#onlyClose">閉じる</button>
+    </div>
+  </div>
+<% end %>

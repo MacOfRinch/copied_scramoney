@@ -10,7 +10,7 @@ class SignupForm
   validates :email, presence: true
   validates :password, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
-  
+
   validate :validate_user
   validate :validate_family
 
@@ -20,7 +20,7 @@ class SignupForm
     user = User.create(family_id: family.id, name:, nickname:, email:, password:,
                        password_confirmation:, avatar:)
     return false if family.invalid? || user.invalid?
-    # バリデーション通ってたらuserでログインしたいから返り値をuserにしておくよ。
+
     user
   end
 
@@ -29,6 +29,7 @@ class SignupForm
   def validate_user
     user = User.new(:name, :nickname, :email, :password, :password_confirmation, :avatar, :avatar_cache)
     return if user.valid?
+
     user.errors.each do |attribute, error|
       errors.add(attribute, error)
     end
@@ -37,6 +38,7 @@ class SignupForm
   def validate_family
     family = Family.new(:family_name, :family_nickname, :family_avatar, :budget)
     return if family.valid?
+
     family.errors.each do |attribute, error|
       errors.add(attribute, error)
     end

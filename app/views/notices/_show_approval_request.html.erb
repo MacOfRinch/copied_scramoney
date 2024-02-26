@@ -8,10 +8,10 @@
     </div>
     <div class="row">
       <div class="col-6 text-center">
-        <%= button_to '承認', family_approval_request_path(family, request), class: 'btn btn-primary', method: :put, data: { turbo_frame: '_top', action: "click->modal#closeAbsolutely" } %>
+        <%= button_to '承認', family_approval_request_path(family, request), class: 'btn btn-primary', method: :put, data: { turbo_frame: '_top', action: "click->modal#closeAndReload" } %>
       </div>
       <div class="col-6 text-center">
-        <%= button_to '拒否', family_approval_request_path(family, request), class: 'btn btn-danger', method: :delete, data: { turbo_frame: '_top', action: "click->modal#closeAbsolutely" } %>
+        <%= button_to '拒否', family_approval_request_path(family, request), class: 'btn btn-danger', method: :delete, data: { turbo_frame: '_top', action: "click->modal#closeAndReload" } %>
       </div>
     </div>
   </div>

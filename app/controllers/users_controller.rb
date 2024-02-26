@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-
-  # userの作成はformatsコントローラにまとまってるからここにはdestroyしかないよ
-
   def destroy
     @family = Family.find_by(id: params[:family_id])
     @user = User.find_by(family_id: params[:family_id], id: params[:id])

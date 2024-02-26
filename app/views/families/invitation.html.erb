@@ -26,7 +26,6 @@
           <p>をタップまたはクリックしてください。</p>
         <% end %>
       <% else %>
-      <!--URLヘルパーに招待コードの情報を持たせてページ遷移することで、招待コードを書くことなくサインアップできるようにしてるよ。-->
         <p><%= link_to 'こちらのページから情報を入力してください', new_invited_path(invitation_code: @invitation_code) %></p>
         <div class="text-center my-2">
           <p>または：</p>

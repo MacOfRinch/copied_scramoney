@@ -9,10 +9,10 @@ class FormatsController < ApplicationController
 
   def create
     @format = SignupForm.new(format_params)
-    # forms/signup_form.rbで定義したsaveメソッドの返り値userを変数userに代入するよ。userオブジェクトかfalseが入ってるよ。
     user = @format.save
     if user
       auto_login(user)
+      user.update_column(:pocket_money, 0)
       family = user.family
       family.budget_of_last_month ||= family.budget
       family.save!
