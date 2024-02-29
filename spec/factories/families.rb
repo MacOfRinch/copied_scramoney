@@ -10,13 +10,13 @@ FactoryBot.define do
         users_count { 4 }
       end
       after(:build) do |family, evaluator|
-        family.users << build_list(:user, evaluator.users_count)
+        family.users << build_list(:user, evaluator.users_count, family: family)
       end
+    end
 
-      trait :another_family do
-        family_name { 'バーンデッド' }
-        family_nickname { '' }
-      end
+    trait :another_family do
+      family_name { 'マッシュルーム' }
+      family_nickname { '' }
     end
   end
 end
