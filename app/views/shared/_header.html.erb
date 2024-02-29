@@ -1,25 +1,21 @@
 <header>
   <nav class="navbar navbar-light bg-warning">
     <div class="container-fluid sticky-top d-flex">
-        <%= link_to family_path(@family) do %>
-          <%= image_tag asset_path('scramoney_rounded_icon.png'), size: "35x35" %>
+      <%= link_to family_path(@family) do %>
+        <%= image_tag asset_path('scramoney_rounded_icon.png'), size: "35x35" %>
+      <% end %>
+      <% if Read.where(user_id: current_user.id, checked: false).present? %>
+        <%= link_to family_notices_path(@family) do %>
+          <span class="fa-stack">
+            <i class="far fa-bell fa-lg text-body" style="font-size: 1.5rem;"></i>
+            <i class="fas fa-circle n-circle fa-stack-1x text-danger"></i>
+          </span>
         <% end %>
-          <!-- <input type="button" class="navbar-brand inline-box" value="<戻る"/> -->
-          <% if Read.where(user_id: current_user.id, checked: false).present? %>
-            <%= link_to family_notices_path(@family) do %>
-              <span class="fa-stack">
-                <i class="far fa-bell fa-lg text-body" style="font-size: 1.5rem;"></i>
-                <i class="fas fa-circle n-circle fa-stack-1x text-danger"></i>
-              </span>
-            <% end %>
-          <% else %>
-            <%= link_to family_notices_path(@family), class: "text-body" do %>
-              <i class="far fa-bell fa-lg" style="font-size: 1.5rem;"></i>
-            <% end %>
-          <% end %>
-            <!--<li><%= button_to 'サインアウト', logout_path, method: :delete %></li>-->
-          </ul>
-        </div>
+      <% else %>
+        <%= link_to family_notices_path(@family), class: "text-body" do %>
+          <i class="far fa-bell fa-lg" style="font-size: 1.5rem;"></i>
+        <% end %>
+      <% end %>
     </div>
   </nav>
 </header>
