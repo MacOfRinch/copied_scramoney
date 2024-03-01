@@ -7,8 +7,8 @@ class User < ApplicationRecord
 
   has_many :task_users, dependent: :destroy
   has_many :tasks, through: :task_users
-  has_many :approval_requests
-  has_many :approval_statuses
+  has_many :approval_requests, dependent: :destroy
+  has_many :approval_statuses, dependent: :destroy
   has_many :notices, dependent: :destroy
   has_many :reads, dependent: :destroy
   has_many :authentications, dependent: :destroy
@@ -123,7 +123,7 @@ class User < ApplicationRecord
     if family.sum_points_of_last_month.zero?
       pm = (total / family.users.size)
     else
-      ratio = sum_points_of_last_month.to_f / family.sum_points_of_last_month
+      ratio = points_of_last_month.to_f / family.sum_points_of_last_month
       pm = total * ratio
     end
     rounded_down = (pm / Unit).to_i * Unit

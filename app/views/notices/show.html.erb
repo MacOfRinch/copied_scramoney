@@ -4,7 +4,7 @@
     <div class="center-block bg-light">
       <div class="text-center">
         <p>お疲れ様でした！</p>
-        <h1><%= "あなたの今月のお小遣いは・・・#{current_user.calculate_pocket_money_of_last_month.to_s(:delimited)}円です！" %></h1>
+        <h1><%= "あなたの今月のお小遣いは・・・#{current_user.calculate_pocket_money_of_last_month.to_fs(:delimited)}円です！" %></h1>
       </div>
     </div>
     <div class="center-block bg-light">

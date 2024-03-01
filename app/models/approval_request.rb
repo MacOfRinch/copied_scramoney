@@ -1,8 +1,8 @@
 class ApprovalRequest < ApplicationRecord
-  has_many :approval_statuses
+  has_many :approval_statuses, dependent: :destroy
   has_many :notices
   has_many :approvers, class_name: 'User', foreign_key: :user_id
-  has_one :temporary_family_data
+  has_one :temporary_family_data, dependent: :destroy, class_name: 'TemporaryFamilyDatum'
 
   belongs_to :family
   belongs_to :requester, class_name: 'User', foreign_key: :user_id
