@@ -13,7 +13,7 @@ namespace :monthly_notice do
         notice = Notice.create!(title: '今月のお小遣いのお知らせ', family_id: family.id, user_id: user.id,
                                 notice_type: :pocket_money)
         Read.create!(user_id: user.id, notice_id: notice.id, checked: false)
-        next unless user.line_flag
+        next if user.line_flag.nil? || user.pocket_money_of_last_month.nil?
 
         message = {
           type: 'text',

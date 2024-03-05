@@ -41,3 +41,6 @@ config/environments/*.local.yml
 /config/certs/*
 /ilovemk0206
 /ilovemk0206-cert.pub
+/node_modules/*
+/.DS_Store
+/tmp/*
