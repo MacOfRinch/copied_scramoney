@@ -10,7 +10,9 @@ namespace :weekly_notice do
     families = Family.all
     families.each do |family|
       family.users.each do |user|
-        next unless user.line_flag
+        user.pocket_money ||= user.calculate_pocket_money
+        user.save!
+        next if user.line_flag.nil? || user.pocket_money.nil?
 
         records_url = 'https://' + Settings.default_url_options.host + Rails.application.routes.url_helpers.family_records_path(user.family)
         message = {
