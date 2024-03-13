@@ -9,7 +9,7 @@ class FormatsController < ApplicationController
 
   def create
     @format = SignupForm.new(format_params)
-    user = @format.save
+    user = @format.save_and_return_user
     if user
       auto_login(user)
       user.update_column(:pocket_money, 0)

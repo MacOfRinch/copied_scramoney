@@ -14,7 +14,7 @@ class SignupForm
   validate :validate_user
   validate :validate_family
 
-  def save
+  def save_and_return_user
     family = Family.create(family_name:, family_nickname:,
                            budget:)
     user = User.create(family_id: family.id, name:, nickname:, email:, password:,

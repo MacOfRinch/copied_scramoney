@@ -14,35 +14,27 @@ class LineEventsController < ApplicationController
     events = line_client.parse_events_from(body)
     events.each do |event|
       case event
-      # アカウント連携処理だよ。公式サイトにやり方載ってるよ。https://developers.line.biz/ja/docs/messaging-api/linking-accounts/#step-four-verifying-user-id
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
           if event.message['text'] == 'アカウント連携'
-            userId = event['source']['userId'] # userId取得
+            userId = event['source']['userId']
             replyToken = event['replyToken']
             uri = URI.parse("https://api.line.me/v2/bot/user/#{userId}/linkToken")
             http = Net::HTTP.new(uri.host, uri.port)
             http.use_ssl = true
-            # 開発環境でSSL証明書発行をスキップする魔法だよ。
             http.verify_mode = OpenSSL::SSL::VERIFY_NONE if Rails.env.development? || Rails.env.test?
             req = Net::HTTP::Post.new(uri.path)
             req['Content-Type'] = 'application/json'
             req['Authorization'] = "Bearer #{ENV['LINE_CHANNEL_TOKEN']}"
             response = http.request(req)
-            token = JSON.parse(response.body)['linkToken'] # linkToken取得
+            token = JSON.parse(response.body)['linkToken']
             if response.code.to_i == 200
               message = {
                 type: 'text',
                 text: "連携申請ありがとうございます！\n下記のURLからアプリの再ログインに進んでください。\nURLの有効期間は10分間です。\nhttps://#{Settings.default_url_options.host}/login?linkToken=#{token}"
               }
               line_client.reply_message(replyToken, message)
-              # elsif response.code.to_i == 200
-              # message = {
-              # type: 'text',
-              # text: "すでに連携済みです。\nご利用ありがとうございます♪"
-              # }
-              # line_client.reply_message(replyToken, message)
             else
               redirect_to root_path, danger: '問題が発生しました。お手数ですが、初めからやり直してください。'
             end
